@@ -5,7 +5,7 @@ import sh
 
 from pythonforandroid.logger import shprint
 from pythonforandroid.recipe import NDKRecipe
-from pythonforandroid.util import current_directory, ensure_dir
+from pythonforandroid.util import current_directory
 
 
 class OpenCVRecipe(NDKRecipe):
@@ -15,7 +15,7 @@ class OpenCVRecipe(NDKRecipe):
         build of most of the libraries of the opencv's package, so we can
         process images, videos, objects, photos...
     '''
-    version = '4.5.2'
+    version = '4.7.0'
     url = 'https://github.com/opencv/opencv/archive/{version}.zip'
     depends = ['numpy']
     patches = ['patches/p4a_build.patch']
@@ -47,7 +47,7 @@ class OpenCVRecipe(NDKRecipe):
 
     def build_arch(self, arch):
         build_dir = join(self.get_build_dir(arch.arch), 'build')
-        ensure_dir(build_dir)
+        shprint(sh.mkdir, '-p', build_dir)
 
         opencv_extras = []
         if 'opencv_extras' in self.ctx.recipe_build_order:
